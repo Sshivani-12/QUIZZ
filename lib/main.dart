@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -132,7 +133,12 @@ void starttimer() async{
             appBar: AppBar(
               title:Text('QUIZ TIME!!',style: TextStyle(
                 color: Colors.black,
-              ),),
+              ),
+              ),
+              automaticallyImplyLeading: true,
+              leading: IconButton(icon: Icon(Icons.arrow_back),
+             onPressed:()=> Navigator.pop(context,false),
+              ),
               centerTitle: true,
               
             ) ,

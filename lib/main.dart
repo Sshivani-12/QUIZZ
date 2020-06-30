@@ -31,9 +31,9 @@ final questions=const[
 {
     'questionText':'What India national animal?',
     'answers':[
-  {'text':'doggie','score':1},
+  {'text':'doggie','score':0},
   {'text':'cat','score':0},
-  {'text':'tiger','score':0},
+  {'text':'tiger','score':1},
   {'text':'lion','score':0}
   ],
 

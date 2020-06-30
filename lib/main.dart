@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import './answer.dart';
 import './question.dart';
 //import 'package:swipdetector/swipedetector.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+//import 'package:flutter_swiper/flutter_swiper.dart';
 
 void main(){
 runApp(MyApp()); 
@@ -73,12 +74,12 @@ var questionIndex=0;
 var total=0;
 var score=0;
 
-int timer=5;
-String showtimer="5";
+int timer=15;
+String showtimer="15";
 bool cancletimer=false;
 void answera(int score)
 {
- // timer=5;
+ 
 total+=score;
      
   setState(() {
@@ -103,6 +104,7 @@ void initState(){
   starttimer();
   super.initState();
 }
+
 void starttimer() async{
   const onesec=Duration(seconds: 1);
   Timer.periodic(onesec,(Timer t){
@@ -110,11 +112,12 @@ void starttimer() async{
       if(timer<1)
       {
         t.cancel();
-
+        questionIndex=questions.length;
+        
        // answera(total);
         
       }
-      else{
+      else {
                 timer=timer-1;
               }
               showtimer=timer.toString();
@@ -137,7 +140,7 @@ void starttimer() async{
             questionIndex < questions.length?
             Column(
               children: <Widget>[
-                Question(questions[questionIndex]['questionText'],
+              Question(questions[questionIndex]['questionText'],
                 ),
         
           ...(questions[questionIndex]['answers'] as List<Map<String,Object>>).map((i) {

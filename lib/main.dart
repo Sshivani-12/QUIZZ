@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
+//import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+//import 'package:flutter_swiper/flutter_swiper.dart';
 import './answer.dart';
 import './question.dart';
 //import 'package:swipdetector/swipedetector.dart';
@@ -78,6 +78,7 @@ var score=0;
 int timer=15;
 String showtimer="15";
 bool cancletimer=false;
+
 void answera(int score)
 {
  
@@ -87,6 +88,8 @@ total+=score;
   questionIndex=questionIndex+1;
     
   });
+
+  
     print(questionIndex);
 if(questionIndex < questions.length){
   print('we have more qs');
@@ -98,7 +101,18 @@ else{
  
 }
 
+void backk()
+{
+ 
+//total+=score;
+  if(questionIndex>0 && questionIndex<questions.length){
+setState(() {
+  questionIndex=questionIndex-1;
+    
+  });
 
+  }   
+  }
 
 @override
 void initState(){
@@ -130,25 +144,25 @@ void starttimer() async{
         
             return MaterialApp(
               home:Scaffold(
-            appBar: AppBar(
-              title:Text('QUIZ TIME!!',style: TextStyle(
-                color: Colors.black,
-              ),
-              ),
-              automaticallyImplyLeading: true,
-              leading: IconButton(icon: Icon(Icons.arrow_back),
-             onPressed:()=> Navigator.pop(context,false),
-              ),
-              centerTitle: true,
+            appBar: CustomAppBar(
+            appBar: AppBar(title: Text("QUIZ TIME!!"),),
+            
+            onTap: () {backk();
+              },
+  
+              
+          //    centerTitle: true,
               
             ) ,
+            
             body:
+            
             questionIndex < questions.length?
             Column(
               children: <Widget>[
               Question(questions[questionIndex]['questionText'],
                 ),
-        
+                
           ...(questions[questionIndex]['answers'] as List<Map<String,Object>>).map((i) {
             return Answer(()=>answera(i['score']),i['text']);
           }).toList(),
@@ -167,7 +181,9 @@ void starttimer() async{
         
                   ),
                 ) 
+                
               ,) ,
+
               
             ),
             ],
@@ -187,3 +203,17 @@ void starttimer() async{
 
 }
 
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final VoidCallback onTap;
+  final AppBar appBar;
+
+  const CustomAppBar({Key key, this.onTap,this.appBar}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  GestureDetector(onTap: onTap,child: appBar);
+  }
+
+  @override
+  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
+}

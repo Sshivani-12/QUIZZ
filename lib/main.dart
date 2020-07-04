@@ -8,9 +8,6 @@ import './question.dart';
 //import 'package:swipdetector/swipedetector.dart';
 //import 'package:flutter_swiper/flutter_swiper.dart';
 
-void main(){
-runApp(MyApp()); 
-}
 
 class MyApp extends StatefulWidget {
   @override
@@ -145,11 +142,26 @@ void starttimer() async{
             return MaterialApp(
               home:Scaffold(
             appBar: CustomAppBar(
-            appBar: AppBar(title: Text("QUIZ TIME!!"),),
-            
-            onTap: () {backk();
+            appBar: AppBar(
+              title:Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      backk();
               },
-  
+                child: Icon(
+                  Icons.arrow_back,
+                ),
+                  ),
+                  Text("QUIZ TIME!!"),
+                
+ 
+                ],
+
+              )
+              ),
+            
               
           //    centerTitle: true,
               
@@ -160,12 +172,14 @@ void starttimer() async{
             questionIndex < questions.length?
             Column(
               children: <Widget>[
-              Question(questions[questionIndex]['questionText'],
+              
+               Question(questions[questionIndex]['questionText'],
                 ),
                 
           ...(questions[questionIndex]['answers'] as List<Map<String,Object>>).map((i) {
             return Answer(()=>answera(i['score']),i['text']);
           }).toList(),
+               
               SizedBox(height: 90),          
             Container(
               
